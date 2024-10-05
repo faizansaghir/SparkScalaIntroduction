@@ -12,6 +12,34 @@ Summarize learning of Spark using Scala
     b. Add %HADOOP_HOME\bin to Path variable
     c. Add winutils.exe to hadoop\bin folder</pre>
 
+## RDD(Resilient Distributed Dataset)
+
+1. This is the original API Spark came with. <br><br>
+2. We now have higher level APIs but some work are more efficiently done by RDDs <br><br>
+3. RDDs are rows of data hence called dataset which are distributed across different nodes thus it is distributed <br><br>
+4. Even if a node fails, Spark has the lineage of RDD and knows how to recreate it thus make it resilient <br><br>
+5. There are different ways of creating an RDD
+   <pre> Examples
+   a. val nums = parallelize(List(1,2,3,4))
+   
+   b. sc.textFile("file:///c:/users/example/someTextFile.txt")
+      This creates an RDD with each line of text file as a separate row
+      We can also use distributed file system like s3n:// or hdfs://
+   
+   c. hiveCtx = HiveContext(sc) 
+      rows = hiveCtx.sql("SELECT name, age FROM users")
+      We can also load data from JDBC, Cassandra, HBase, 
+         ElasticSearch, JSON, CSV,sequence files, 
+         object files, and many other file formats </pre> <br>
+6. Transformations: When applied to a dataset, it manipulates the data to give back a dataset where the given function
+   is applied to each row of the dataset <br>
+   Some important transformation supported by RDD: <br>
+      &emsp;map, flatmap, filter, distinct, sample, union, intersection, subtract, cartesian, etc. <br><br>
+7. Actions: Gives back result to the Driver. These return concern from Spark back to Scala,
+   thus we no longer have spark features and optimizations <br>
+   Some important action supported by RDD: <br>
+      collect, count, countByValue, take, top, reduce, etc. <br><br>
+   
 ## Some spark related questions
 
 1. The script that controls your Spark job is called... <br>
@@ -31,4 +59,10 @@ Summarize learning of Spark using Scala
 &emsp;Spark Streaming, Spark SQL, MLLib and GraphX
    <br><br>
 5. What language is Spark itself written in? <br>
-   &emsp;Scala
+   &emsp;Scala <br><br>
+6. What is Lazy Evaluation? <br>
+   &emsp;Spark does not evaluate until you call an action no matter how many transformations you have applied <br>
+   Once you call an action, Spark does the optimizations and then executes the operations <br><br>
+7. What does it mean when we pass "local[*]" as master while instantiating SparkContext? <br>
+   &emsp;local[*] passed as master parameter to SparkContext constructor means 
+   we will be using all available threads of local system
