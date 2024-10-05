@@ -31,14 +31,6 @@ Summarize learning of Spark using Scala
       We can also load data from JDBC, Cassandra, HBase, 
          ElasticSearch, JSON, CSV,sequence files, 
          object files, and many other file formats </pre> <br>
-6. Transformations: When applied to a dataset, it manipulates the data to give back a dataset where the given function
-   is applied to each row of the dataset <br>
-   Some important transformation supported by RDD: <br>
-      &emsp;map, flatmap, filter, distinct, sample, union, intersection, subtract, cartesian, etc. <br><br>
-7. Actions: Gives back result to the Driver. These return concern from Spark back to Scala,
-   thus we no longer have spark features and optimizations <br>
-   Some important action supported by RDD: <br>
-      collect, count, countByValue, take, top, reduce, etc. <br><br>
    
 ## Some spark related questions
 
@@ -63,6 +55,16 @@ Summarize learning of Spark using Scala
 6. What is Lazy Evaluation? <br>
    &emsp;Spark does not evaluate until you call an action no matter how many transformations you have applied <br>
    Once you call an action, Spark does the optimizations and then executes the operations <br><br>
-7. What does it mean when we pass "local[*]" as master while instantiating SparkContext? <br>
-   &emsp;local[*] passed as master parameter to SparkContext constructor means 
-   we will be using all available threads of local system
+7. What does it mean when we pass "local[\*]" as master while instantiating SparkContext? <br>
+   &emsp;local[\*] passed as master parameter to SparkContext constructor means 
+   we will be using all available threads of local system <br><br>
+8. What is Transformation in Spark? <br>
+   &emsp;Transformation functions when applied to a dataset, gives back a dataset where the given function
+   is applied to each row of the original dataset <br>
+   Some important transformation supported by RDD: <br>
+   &emsp;map, flatmap, filter, distinct, sample, union, intersection, subtract, cartesian, etc. <br><br>
+9. What is Action in Spark? <br>
+   &emsp;Action functions are functions that gives back result to the Driver. These return concern from Spark back to Scala,
+   thus we no longer have Spark features and optimizations <br>
+   Some important action supported by RDD: <br>
+   collect, count, countByValue, take, top, reduce, etc. <br><br>
