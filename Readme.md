@@ -68,3 +68,10 @@ Summarize learning of Spark using Scala
    thus we no longer have Spark features and optimizations <br>
    Some important action supported by RDD: <br>
    collect, count, countByValue, take, top, reduce, etc. <br><br>
+10. What is Job, Stage and Task? <br>
+   &emsp;Each Spark code submitted to run on a cluster(even local) is called a Job <br>
+   Each job is divided into Stages, Stages are created each time data needs to be shuffled among the executors 
+   due to some transformation <br>
+   Each stage is divided into tasks based on transformations to be applied, where each task can be processed in 
+   parallel in some executor node. 
+   
