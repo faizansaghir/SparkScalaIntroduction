@@ -33,7 +33,16 @@ Summarize learning of Spark using Scala
          object files, and many other file formats </pre> <br>
 6. If a RDD has tuple of 2 elements, then it is called and acts as key-value RDD <br>
    These RDDs enable additional functionalities like <br>
-   mapValue, reduceByKey, etc
+   mapValues, reduceByKey, etc <br><br>
+7. Some important functions and their use <br>
+   a. <strong>map</strong>: Creates 1 to 1 mapping <br>
+   b. <strong>flatmap</strong>: Maps the rows and then applies flatten method which separates each element of resultant array into a row
+   i.e. if the row is array of elements then it separates each element into a separate row <br>
+   c. <strong>mapValues</strong>: Applied to key-value RDD where the mapping function passes the value part of the tuple
+   and returns a tuple or a single value back <br>
+   d. <strong>reduceByKey</strong>: Applied to key-value RDD where the reducing function passes value part of the tuple
+   and we need to return a single value back from the reducing function <br>
+   d. <strong>countByValue</strong>: Gets count of each distinct value in RDD as a map or dictionary
    
 ## Some spark related questions
 
