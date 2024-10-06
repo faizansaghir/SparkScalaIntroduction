@@ -31,6 +31,9 @@ Summarize learning of Spark using Scala
       We can also load data from JDBC, Cassandra, HBase, 
          ElasticSearch, JSON, CSV,sequence files, 
          object files, and many other file formats </pre> <br>
+6. If a RDD has tuple of 2 elements, then it is called and acts as key-value RDD <br>
+   These RDDs enable additional functionalities like <br>
+   mapValue, reduceByKey, etc
    
 ## Some spark related questions
 
@@ -73,5 +76,4 @@ Summarize learning of Spark using Scala
    Each job is divided into Stages, Stages are created each time data needs to be shuffled among the executors 
    due to some transformation <br>
    Each stage is divided into tasks based on transformations to be applied, where each task can be processed in 
-   parallel in some executor node. 
-   
+   parallel in some executor node.
