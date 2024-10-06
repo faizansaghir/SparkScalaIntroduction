@@ -11,7 +11,11 @@ object TotalSpentByCustomers {
     val customerData = lines.map(parseCustomerData)
     val spendPerCustomer = customerData.reduceByKey((x, y) => x+y)
     val spendPerCustomerSorted = spendPerCustomer.map(row => (row._2, row._1)).sortByKey().map(row => (row._2, row._1))
-    spendPerCustomerSorted.foreach(println)
+    spendPerCustomerSorted.foreach(printCustomerData)
+  }
+
+  private def printCustomerData(row: (Int, Float)) = {
+    printf("Customer ID: %d, Total Amount Spent: %.2f\n", row._1, row._2)
   }
 
   private def parseCustomerData(line: String): (Int, Float) = {
