@@ -10,7 +10,8 @@ object TotalSpentByCustomers {
     val lines = sc.textFile("data/customer-orders.csv")
     val customerData = lines.map(parseCustomerData)
     val spendPerCustomer = customerData.reduceByKey((x, y) => x+y)
-    spendPerCustomer.foreach(println)
+    val spendPerCustomerSorted = spendPerCustomer.map(row => (row._2, row._1)).sortByKey().map(row => (row._2, row._1))
+    spendPerCustomerSorted.foreach(println)
   }
 
   private def parseCustomerData(line: String): (Int, Float) = {
