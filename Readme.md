@@ -43,6 +43,7 @@ Summarize learning of Spark using Scala
    d. <strong>reduceByKey</strong>: Applied to key-value RDD where the reducing function passes value part of the tuple
    and we need to return a single value back from the reducing function <br>
    d. <strong>countByValue</strong>: Gets count of each distinct value in RDD as a map or dictionary
+   e. <strong>sortBykey</strong>: Applied on key-value RDD, this sorts the RDD by key i.e. the first element of tuple
    
 ## Some spark related questions
 
