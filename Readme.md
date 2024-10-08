@@ -44,7 +44,28 @@ Summarize learning of Spark using Scala
    and we need to return a single value back from the reducing function <br>
    d. <strong>countByValue</strong>: Gets count of each distinct value in RDD as a map or dictionary
    e. <strong>sortBykey</strong>: Applied on key-value RDD, this sorts the RDD by key i.e. the first element of tuple
-   
+8. RDDs contain rows but the value of these rows are not separated out into columns 
+   and each row acts as having a single simple or complex object as its value   
+
+## DataFrame
+
+1. These are similar to RDDs but apart from containing dataset of rows, it also has a schema associated to the row <br><br>
+2. DatFrame is a DataSet of Row object and this Row object has a schema <br><br>
+2. A defined schema allows it to be stored more efficiently <br><br>
+3. Having a schema allows to execute SQl queries on them <br><br>
+4. It can read and write from JSON, Hive, Parquet, etc. <br><br>
+5. It can communicate with JDBC/ODBC, etc. <br><br>
+
+## Dataset
+
+1. These are DataFrame where instead of Row, we can have a defined structure i.e. a class or struct <br><br>
+2. Due to having a defined structure, it can detect issues during compile time related to data types <br><br>
+3. Dataset is only available in languages that support compile time check, thus, Python does not support Dataset <br><br>
+4. For using Spark SQl and higher level APIs like DatFrame and Dataset, we need SparkSession instead of SparkContext <br><br>
+5. We can convert an RDD into a Dataset using toDS() function of RDD <br><br>
+6. We can convert Dataset to RDD using rdd() function of Dataset <br><br>
+7. We can have UDFs in Dataset like we have in DataBases <br><br>
+
 ## Some spark related questions
 
 1. The script that controls your Spark job is called... <br>
