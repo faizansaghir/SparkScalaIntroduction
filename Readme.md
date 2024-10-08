@@ -65,6 +65,13 @@ Summarize learning of Spark using Scala
 5. We can convert an RDD into a Dataset using toDS() function of RDD <br><br>
 6. We can convert Dataset to RDD using rdd() function of Dataset <br><br>
 7. We can have UDFs in Dataset like we have in DataBases <br><br>
+8. When the case class is simple, spark can implicitly infer the schema and encode each row to the given case class object <br>
+   For this we need to add <code>import spark.implicits._</code> before we convert DataFrame to Dataset
+   <pre>Example
+      import spark.implicits._
+      val ds = df.as[Person]
+   </pre>
+   
 
 ## Some spark related questions
 
@@ -107,4 +114,33 @@ Summarize learning of Spark using Scala
    Each job is divided into Stages, Stages are created each time data needs to be shuffled among the executors 
    due to some transformation <br>
    Each stage is divided into tasks based on transformations to be applied, where each task can be processed in 
-   parallel in some executor node.
+   parallel in some executor node. <br><br>
+11. How can we create a SparkSession? <br>
+   <pre>Example
+   val spark = SparkSession.builder.appName("SomeAppName").master("local[\*]").getOrCreate()</pre> <br>
+12. Show an example of DataFrame and Dataset
+   <pre>Example
+   val df = spark.read
+               .option("header","true")
+               .option("inferSchema","true")
+               .csv("pathToCSV.csv")
+   import spark.implicits._
+   val ds = df.as[SomeCaseClass]
+   /*
+   * Here each entry of DataFrame will be of type Row, as schema will be infered when we read the csv file 
+      the schema will be known during execution but there is no compile time check
+      While each entry of Dataset will be of type Person,
+      Any operation on the Dataset will be checked at compile time
+   */
+   </pre> <br>
+13. What is case class in scala?
+   &emsp;A case class in scala is a short hand notation to define a class that is kind of a POJO
+   <pre>Example
+   case class Person(id:Int, name:String, age:Int, friends:Int)</pre> <br><br>
+14. How to create a temporary view using Dataset and how to query it using spark? <br>
+   &emsp;To create a view, use createOrReplaceTempView(viewName) function of Dataset or DataFrame object <br>
+   To query from the view, use spark.sql(query) and query from the view
+   <pre>Example
+   dfOrDs.createOrReplaceTempView("people")
+   val teenagers = spark.sql("SELECT * FROM people WHERE age>=13 AND age<=19")
+   </pre> <br><br>
