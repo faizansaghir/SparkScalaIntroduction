@@ -144,3 +144,23 @@ Summarize learning of Spark using Scala
    dfOrDs.createOrReplaceTempView("people")
    val teenagers = spark.sql("SELECT * FROM people WHERE age>=13 AND age<=19")
    </pre> <br><br>
+15. When can RDD be more useful than DataFrame and Dataset? <br>
+   &emsp;Weh we are working with data that do not have a schema, eg: text file with lines of text like a book. <br>
+   In such cases, RDD can be used as these data do not have a schema <br><br>
+16. What is the default column name when we do not specify a schema or column name? <br>
+    &emsp; Default column name in Spark is "value" <br><br>
+17. How to handle cases when CSV file does not have header? <br>
+   &emsp;We should create a Schema and pass it to DataFrameReader
+   <pre>Example
+      val temperatureSchema = new StructType()
+      .add("stationID", StringType, nullable = true)
+      .add("date", IntegerType, nullable = true)
+      .add("measure_type", StringType, nullable = true)
+      .add("temperature", FloatType, nullable = true)
+
+      import spark.implicits._
+      val ds = spark.read
+      .schema(temperatureSchema)
+      .csv("data/1800.csv")
+      .as[Temperature]
+</pre>
