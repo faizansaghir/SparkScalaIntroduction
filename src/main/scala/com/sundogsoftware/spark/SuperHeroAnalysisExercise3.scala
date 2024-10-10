@@ -2,10 +2,8 @@ package com.sundogsoftware.spark
 
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.functions.{col, size, split, sum}
-import org.apache.spark.sql.types.{IntegerType, StringType, StructType}
 
-object SuperHeroAnalysisExercise2 {
+object SuperHeroAnalysisExercise3 {
 
   private def getCharacterToNumberOfCoApprearances(line: String): (Int, Int) = {
     val parts = line.split(" ")
@@ -41,18 +39,20 @@ object SuperHeroAnalysisExercise2 {
 
     val flipped = characterIdToTotalNumberOfCoAppearancesRdd.map(row => (row._2, row._1))
 
-    val mostPopularSuperheroEntry = flipped.sortByKey(ascending = false).first()
+    val mostObscureSuperheroAppearanceCount = flipped.min()._1
 
-    val mostPopularSuperheroId = mostPopularSuperheroEntry._2
+    val mostObscureSuperheroAppearanceEntries = flipped.filter(row => row._1==mostObscureSuperheroAppearanceCount)
+
+    val mostObscureSuperheroIds = mostObscureSuperheroAppearanceEntries.values.collect().toSet
 
     val superheroIdToNameRdd = spark.sparkContext.textFile("data/Marvel-names.txt")
       .flatMap(parseMarvelNameLine)
 
-    val mostPopularSuperheroName = superheroIdToNameRdd
-      .filter(entry => (entry._1 == mostPopularSuperheroId))
-      .first()._2
+    val mostObscureSuperheroNames = superheroIdToNameRdd
+      .filter(entry => mostObscureSuperheroIds.contains(entry._1))
+      .map(_._2).collect()
 
-    println(f"${mostPopularSuperheroName} is the most popular superhero with ${mostPopularSuperheroEntry._1} co-appearances")
+    println(f"Most obscure superheros are ${mostObscureSuperheroNames.mkString("", ", ", "")} with ${mostObscureSuperheroAppearanceCount} co-appearances")
 
     spark.close()
   }
