@@ -162,5 +162,32 @@ Summarize learning of Spark using Scala
       val ds = spark.read
       .schema(temperatureSchema)
       .csv("data/1800.csv")
-      .as[Temperature]
-</pre>
+      .as[Temperature]</pre> <br>
+18. What happens if our case class does not have attributes corresponding to all the columns in DataFrame? <br>
+    &emsp;If we have a case class which contains attributes which are subset of all columns in DataFrame,
+    casting Dataframe into Dataset of the case class will only extract the available column leaving out rest
+   <pre>Example
+      case class Movie(movieId: Int)
+      df.select(col("movieId"), col("movieName"), col("ratings")).as[Movie]
+      
+      This will only extract movieId column from DataFrame and create Dataset of Movie</pre> <br>
+19. What is broadcast in SparkContext? <br>
+    &emsp;If we have a small data, we can broadcast it to all the executors,
+   so that they can perform operations on it if required <br>
+   To broadcast data, use SparkContext's broadcast() function, we can pass any data type eg: Map[Int, String]
+   <pre>Example
+      def loadMoviesName() : Map[Int, String] = {...}
+      val nameDict = spark.sparkContext.broadcast(loadMovieNames())</pre> <br>
+20. What are UDFs? <br>
+   &emsp;UDFs are user defined functions. These work similar to SQL functions like sum, avg etc.
+   <pre>Example
+      // nameDict is a broadcast variable of type Map[Int, String], nameDict.value will give Map[Int, String]
+      val lookupName : Int => String = (movieID:Int)=>{
+         nameDict.value(movieID)
+      }
+
+       // Then wrap it with a udf
+       val lookupNameUDF = udf(lookupName)
+
+       // Add a movieTitle column using our new udf
+       val moviesWithNames = movieCounts.withColumn("movieTitle", lookupNameUDF(col("movieID")))</pre> <br>
