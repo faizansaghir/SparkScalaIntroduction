@@ -14,6 +14,8 @@ Summarize learning of Spark using Scala
 4. Important environment variables to set:
    JAVA_HOME, SPARK_HOME, HADOOP_HOME and PYTHON_HOME(for pyspark)
 5. To add support for pyspark, add PYTHON_HOME to environment variable which references <code>python.exe</code> in system
+6. Spark UI is by default available at localhost:4040 and is available as long as spark session is running.
+   If 4040 port is busy, it tries running the UI in next available port and is shown as an info log
 
 ## RDD(Resilient Distributed Dataset)
 
