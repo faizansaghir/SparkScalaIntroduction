@@ -12,7 +12,8 @@ Summarize learning of Spark using Scala
     b. Add %HADOOP_HOME\bin to Path variable
     c. Add winutils.exe to hadoop\bin folder</pre>
 4. Important environment variables to set:
-   JAVA_HOME, SPARK_HOME, HADOOP_HOME
+   JAVA_HOME, SPARK_HOME, HADOOP_HOME and PYTHON_HOME(for pyspark)
+5. To add support for pyspark, add PYTHON_HOME to environment variable which references <code>python.exe</code> in system
 
 ## RDD(Resilient Distributed Dataset)
 
