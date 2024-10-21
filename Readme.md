@@ -11,6 +11,8 @@ Summarize learning of Spark using Scala
     a. Add HADOOP_HOME as newly created hadoop folder
     b. Add %HADOOP_HOME\bin to Path variable
     c. Add winutils.exe to hadoop\bin folder</pre>
+4. Important environment variables to set:
+   JAVA_HOME, SPARK_HOME, HADOOP_HOME
 
 ## RDD(Resilient Distributed Dataset)
 
